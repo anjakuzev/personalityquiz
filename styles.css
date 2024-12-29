@@ -1,0 +1,154 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom right, #000428, #004e92);
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    max-width: 1200px;
+}
+
+.text {
+    text-align: left;
+    max-width: 600px;
+}
+
+.text h1 {
+    font-size: 4rem;
+    font-weight: bold;
+    margin: 0;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+.text p {
+    font-size: 1.5rem;
+    margin: 10px 0 0;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.6);
+}
+
+.robot img {
+    width: 600px;
+    animation: float 2s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+#chatbox {
+    background-color: rgba(0, 0, 0, 0.6);
+    border: 1px solid #fff;
+    border-radius: 10px;
+    padding: 10px;
+    max-height: 300px;
+    overflow-y: auto;
+    margin: 20px 0;
+    color: #fff;
+    font-size: 1rem;
+}
+
+.message {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#bot {
+    background-color: rgba(0, 120, 215, 0.7);
+}
+
+.user {
+    background-color: rgba(120, 215, 0, 0.7);
+    text-align: right;
+}
+
+.input-area {
+    display: flex;
+    gap: 10px;
+}
+
+select, button {
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: none;
+}
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column; /* Stack elements vertically */
+        align-items: center; /* Center align elements */
+    }
+
+    .text {
+        max-width: 100%; /* Use full width on smaller screens */
+        text-align: center; /* Center text for better readability */
+    }
+
+    .text h1 {
+        font-size: 2.5rem; /* Adjust font size for smaller screens */
+    }
+
+    .text p {
+        font-size: 1.2rem; /* Adjust paragraph size for smaller screens */
+    }
+
+    .robot img {
+        width: 100%; /* Ensure robot image fits within screen */
+        max-width: 300px; /* Limit maximum width for better scaling */
+    }
+
+    #chatbox {
+        max-height: 200px; /* Reduce height of the chatbox */
+        font-size: 0.9rem; /* Slightly smaller font size */
+    }
+
+    .input-area {
+        flex-direction: column; /* Stack inputs vertically */
+        gap: 5px; /* Reduce spacing between inputs */
+        width: 100%; /* Full width inputs for mobile */
+    }
+
+    select, button {
+        padding: 10px;
+        font-size: 1rem;
+        width: 100%; /* Make inputs take up full width */
+    }
+}
+
+@media (max-width: 480px) {
+    .text h1 {
+        font-size: 2rem; /* Further reduce heading size */
+    }
+
+    .text p {
+        font-size: 1rem; /* Further reduce text size */
+    }
+
+    .robot img {
+        max-width: 200px; /* Smaller image for very small screens */
+    }
+
+    #chatbox {
+        max-height: 150px; /* Further reduce chatbox height */
+        font-size: 0.8rem; /* Smaller font for very small screens */
+    }
+
+    .message {
+        font-size: 0.8rem; /* Smaller message text */
+    }
+}

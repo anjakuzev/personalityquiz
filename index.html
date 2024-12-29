@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Futuristic Chatbot</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom right, #000428, #004e92);
+            color: #fff;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 90%;
+            max-width: 1200px;
+        }
+
+        .chat-container {
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            padding: 20px;
+            width: 50%;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #chatbox {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 10px;
+            height: 300px;
+            overflow-y: auto;
+            margin-bottom: 10px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .message {
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 10px;
+            max-width: 80%;
+        }
+
+        .bot {
+            background: #004e92;
+            color: #fff;
+            align-self: flex-start;
+        }
+
+        .user {
+            background: #ffffff;
+            color: #000;
+            align-self: flex-end;
+        }
+
+        .input-area {
+            display: flex;
+            gap: 10px;
+        }
+
+        select, button {
+            padding: 10px;
+            font-size: 1rem;
+            border-radius: 5px;
+            border: none;
+        }
+
+        select {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="chat-container">
+            <div id="chatbox">
+                <div class="message bot">Are you ready to feel amazed? Answer my questions and you will see why.. What’s your favorite color?</div>
+            </div>
+            <div class="input-area">
+                <select id="input">
+                    <option value="">Choose an answer</option>
+                    <option value="a">a) Vibrant colors</option>
+                    <option value="b">b) Black or white</option>
+                    <option value="c">c) Earthy tones</option>
+                    <option value="d">d) Neutral tones</option>
+                    <option value="e">e) Any color that looks good on a screen</option>
+                </select>
+                <button onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+        <div class="robot">
+            <img src="robot.png" alt="Robot Illustration">
+        </div>
+    </div>
+
+    <script>
+        const chatbox = document.getElementById('chatbox');
+        const input = document.getElementById('input');
+        let step = 0;
+    
+        const questions = [
+            "What’s your favorite color?",
+            "What’s your relationship status (tell us the drama)?",
+            "Which pet matches your chaotic energy?",
+            "If you were stuck on a desert island, what’s the one thing you'd take?",
+            "How do you spend your Saturday nights?"
+        ];
+    
+        const options = [
+            ["a) The color of my tears after a bad haircut", "b) Black, like my coffee and my soul", "c) Green, like money (or plants, I guess)", "d) Blue, because I’m a calm ocean… or a storm", "e) Neon pink—because subtlety is overrated"], // Q1
+            ["a) I am that friend that dates the brother and the cousin of the people here", "b) In a relationship with an Andrej", "c) In love with my best friend's childhood friend", "d) I’m not sure, ask my pet"], // Q2
+            ["a) A dog who barks at leaves", "b) A cat who judges my life choices", "c) A bird who screams for no reason", "d) A snake (I respect the drama)", "e) A fish—I need low expectations in life"], // Q3
+            ["a) My phone (even if there’s no signal, selfies matter)", "b) A hammock to vibe in style", "c) Snacks—I’m not surviving without chips", "d) A solar-powered gaming console (priorities)", "e) A boat because duh"], // Q4
+            ["a) Partying like it’s my last night on Earth", "b) Watching crime documentaries and wondering if I’d survive", "c) Crafting things no one asked for", "d) Gaming and yelling at strangers online", "e) Sleeping like I’m being paid for it"] // Q5
+        ];
+    
+        const answers = [];
+    
+        function sendMessage() {
+            const userInput = input.value;
+            if (!userInput) return;
+    
+            // Append user's response
+            chatbox.innerHTML += `<div class='message user'>${input.options[input.selectedIndex].text}</div>`;
+            answers.push(userInput);
+            input.value = "";
+    
+            // Move to the next question or make a guess
+            if (step < questions.length - 1) {
+                step++;
+                chatbox.innerHTML += `<div class='message bot'>${questions[step]}</div>`;
+                updateOptions(step);
+            } else {
+                const guess = guessPerson(answers[1]); // Decision based on the second answer
+                chatbox.innerHTML += `<div class='message bot'>I think you're ${guess}!</div>`;
+            }
+    
+            // Scroll chatbox to bottom
+            chatbox.scrollTop = chatbox.scrollHeight;
+        }
+    
+        function updateOptions(step) {
+            input.innerHTML = "<option value=''>Choose an answer</option>"; // Clear previous options
+            if (options[step]) {
+                options[step].forEach((option, index) => {
+                    const opt = document.createElement('option');
+                    opt.value = String.fromCharCode(97 + index); // a, b, c, etc.
+                    opt.textContent = option;
+                    input.appendChild(opt);
+                });
+            }
+        }
+    
+        function guessPerson(answer) {
+            if (answer === "a") {
+                return "Nela, good job! You made your choice and joined the family—welcome, you're one of us now. 🐱 Also, Anja spent 20 minutes on this quiz, so don’t judge.";
+            }
+            if (answer === "b") {
+                return "Hmm, it’s either Mirjana or Katerina... honestly, how should I know? You're both dating an Andrej. Can’t you people pick another name? 🙄 By the way, Anja spent 20 minutes creating this masterpiece.";
+            }
+            if (answer === "c") {
+                return "Denicija, the creative and hippie architect! Still in love with your best friend's childhood friend, huh? Sweet and dramatic as always. 🌿 And yes, Anja invested 20 minutes in making this quiz just for you.";
+            }
+            if (answer === "d") {
+                return "Andrea or Iva, you’re single? Looks like IKEA furniture isn’t the only thing complicated in your life. 🤷‍♀️ Also, Anja spent 20 minutes on this quiz, so enjoy her effort!";
+            }
+            return "Anja, you tech genius! You’ve spent 20 minutes on this quiz—don’t judge, she tried her best. 💻";
+        }
+    
+        // Initialize first question options
+        updateOptions(0);
+    </script>
+    
+</body>
+</html>
